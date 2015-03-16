@@ -1,0 +1,34 @@
+{% extends "taskapp/base.html" %}
+
+{% block title %}
+  {{ project.title }} in {{ category.title }} | {{ block.super }}
+{% endblock %}
+
+{% block body %}
+  <h1>{{ project.title }} in
+    <a href="{% url 'taskapp:category' category.id %}">{{ category.title }}</a>
+  </h1>
+  <h2>{{ project.description }}</h2>
+
+  <dl>
+  <h3>Tasks</h3>
+  {% for task in project.project_task_set.all %}
+    <dt>{{ task.description }}</dt>
+    <dd>
+      due {{ task.due_date|date:"M j" }} 
+      at {{ task.due_date|date:"g:i A" }}
+    </dd>
+  {% endfor %}
+  </dl>
+  <h3>Add Task</h3>
+  <form action="" method = "POST">
+    {% csrf_token %}
+    {% for field in project_task_form %}
+        <div class="fieldWrapper">
+            {{ field.errors }}
+            {{ field.label_tag }} {{ field }}
+        </div>
+    {% endfor %}
+    <input type="submit" value="Submit">
+  </form>
+{% endblock %}

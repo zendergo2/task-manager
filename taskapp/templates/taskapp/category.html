@@ -1,0 +1,65 @@
+{% extends "taskapp/base.html" %}
+
+{% block title %}
+  {{ category.title }} | {{ block.super }}
+{% endblock %}
+
+{% block body %}
+  <h1>{{ category.title }}</h1>
+  <h2>{{ category.description }}</h2>
+
+  <dl>
+    {% for project in category.project_set.all %}
+
+      {% if forloop.first %}
+        <h3>Projects</h3>
+      {% endif %}
+
+      <dt><a href="{% url 'taskapp:project' category.id project.id %}">{{ project.title }}</a></dt>
+      <dd>
+        due {{ project.due_date|date:"M j" }} 
+        at {{ project.due_date|date:"g:i A" }}
+      </dd>
+
+    {% endfor %}
+  </dl>
+
+  <h3>Add Project</h3>
+  <form action="" method = "POST">
+    {% csrf_token %}
+    {% for field in project_form %}
+        <div class="fieldWrapper">
+            {{ field.errors }}
+            {{ field.label_tag }} {{ field }}
+        </div>
+    {% endfor %}
+    <input type="submit" value="Submit">
+  </form>
+
+  <dl>
+    {% for task in category.task_set.all %}
+      
+      {% if forloop.first %}
+        <h3>Tasks</h3>
+      {% endif %}
+      
+      <dt>{{ task.title }}</dt>
+      <dd>
+        due {{ task.due_date|date:"M j" }} 
+        at {{ task.due_date|date:"g:i A" }}
+      </dd>
+
+    {% endfor %}
+  </dl>
+  <h3>Add Task</h3>
+  <form action="" method = "POST">
+    {% csrf_token %}
+    {% for field in task_form %}
+        <div class="fieldWrapper">
+            {{ field.errors }}
+            {{ field.label_tag }} {{ field }}
+        </div>
+    {% endfor %}
+    <input type="submit" value="Submit">
+  </form>
+{% endblock %}

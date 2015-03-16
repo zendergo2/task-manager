@@ -1,0 +1,12 @@
+# In root
+db.sqlite3
+manage.py
+
+# In subfolders
+tasks/settings.py
+taskapp/migrations/**
+
+# Other
+**/__init__.py
+*.pyc
+*.pyo

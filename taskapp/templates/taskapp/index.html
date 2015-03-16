@@ -1,0 +1,21 @@
+{% extends "taskapp/base.html" %}
+
+{% block body %}
+  <ul>
+  {% for category in category_list %}
+    <li><a href="{{ category.id }}">{{ category.title }}</a></li>
+  {% endfor %}
+  </ul>
+
+  <h3>Add Category</h3>
+  <form action="" method = "POST">
+    {% csrf_token %}
+    {% for field in category_form %}
+        <div class="fieldWrapper">
+            {{ field.errors }}
+            {{ field.label_tag }} {{ field }}
+        </div>
+    {% endfor %}
+    <input type="submit" value="Submit">
+  </form>
+{% endblock %}
