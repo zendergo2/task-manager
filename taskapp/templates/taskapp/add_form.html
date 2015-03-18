@@ -1,0 +1,50 @@
+{% if form_title == 'category' %}
+  <form action="{% url 'taskapp:add_category' %}" method = "POST">
+    {% csrf_token %}
+    <li class="fieldWrapper">
+    {% for field in form %}
+      <span clear="both">
+        {{ field.errors }}
+        {{ field }}
+      </span>
+    {% endfor %}
+    </li>
+    <input type="submit" value="Submit" hidden>
+  </form>
+{% elif form_title == 'project' %}
+  <form action="{% url 'taskapp:add_project' %}" method = "POST">
+    {% csrf_token %}
+    {% for field in form %}
+      <div class="fieldWrapper">
+          {{ field.errors }}
+          {{ field.label_tag }} {{ field }}
+      </div>
+    {% endfor %}
+    <input type="submit" value="Add Project">
+  </form>
+{% elif form_title == 'task' %}
+  <form action="{% url 'taskapp:add_task' %}" method = "POST">
+    {% csrf_token %}
+    {% for field in form %}
+      <div class="fieldWrapper">
+          {{ field.errors }}
+          {{ field.label_tag }} {{ field }}
+      </div>
+    {% endfor %}
+    <input type="submit" value="Add Task">
+  </form>
+{% endif %}
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('input[name="due_date"]').daterangepicker({
+      format: 'MM/DD/YYYY HH:mm',
+      timePicker: true,
+      timePickerIncrement: 15,
+      opens: 'left',
+      singleDatePicker: true,
+    });
+    $('select#id_category option[value="{{ category.id }}"]').attr('selected', 'selected');
+    $('select#id_category').attr('hidden', 'hidden');
+    $('label[for="id_category"]').attr('hidden', 'hidden');
+  });
+</script>

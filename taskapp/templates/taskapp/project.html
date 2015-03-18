@@ -20,15 +20,5 @@
     </dd>
   {% endfor %}
   </dl>
-  <h3>Add Task</h3>
-  <form action="" method = "POST">
-    {% csrf_token %}
-    {% for field in project_task_form %}
-        <div class="fieldWrapper">
-            {{ field.errors }}
-            {{ field.label_tag }} {{ field }}
-        </div>
-    {% endfor %}
-    <input type="submit" value="Submit">
-  </form>
+  {% include "taskapp/add_form.html" with form=project_task_form form_title="task" %}
 {% endblock %}

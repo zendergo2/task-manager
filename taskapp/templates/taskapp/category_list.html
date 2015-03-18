@@ -1,0 +1,7 @@
+<ul>
+{% for category in category_list %}
+  <li class="category" data-url="{% url 'taskapp:category' category.id %}">{{ category.title }}</li>
+{% endfor %}
+
+{% include "taskapp/add_form.html" with form=category_form form_title="category" in_sidebar="true" %}
+</ul>

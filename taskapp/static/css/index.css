@@ -1,0 +1,11 @@
+#sidebar {
+  margin-top: 1em;
+}
+
+#body-container {
+  border-left: .25em solid black;
+}
+
+#nav {
+  border-bottom: .25em solid black;
+}

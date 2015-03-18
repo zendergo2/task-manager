@@ -5,6 +5,7 @@ manage.py
 # In subfolders
 tasks/settings.py
 taskapp/migrations/**
+taskapp/static/lib/**
 
 # Other
 **/__init__.py

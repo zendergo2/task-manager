@@ -17,6 +17,39 @@ def index (request):
   return render(request, 'taskapp/index.html', \
     {'category_list': category_list, 'category_form': category_form,})
 
+def add_category (request):
+  category_form = AddCategoryForm(request.POST or None)
+
+  if request.method == 'POST':
+    if category_form.is_valid():
+      category_form.save()
+      return HttpResponseRedirect(reverse('taskapp:index'))
+
+  return render(request, 'taskapp/add_fail.html', \
+    {'form': u'category'})
+
+def add_project (request):
+  project_form = AddProjectForm(request.POST or None)
+
+  if request.method == 'POST':
+    if project_form.is_valid():
+      project_form.save()
+      return HttpResponseRedirect(reverse('taskapp:index'))
+
+  return render(request, 'taskapp/add_fail.html', \
+    {'form': u'project',})
+
+def add_task (request):
+  task_form = AddTaskForm(request.POST or None)
+
+  if request.method == 'POST':
+    if task_form.is_valid():
+      task_form.save()
+      return HttpResponseRedirect(reverse('taskapp:index'))
+
+  return render(request, 'taskapp/add_fail.html', \
+    {'form': u'task',})
+
 def category (request, category_id):
   category     = get_object_or_404(Category, pk=category_id)
   task_form    = AddTaskForm(request.POST or None)
